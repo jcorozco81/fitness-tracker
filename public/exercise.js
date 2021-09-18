@@ -135,6 +135,8 @@ function clearInputs() {
   repsInput.value = "";
   resistanceDurationInput.value = "";
   weightInput.value = "";
+  completeButton.setAttribute("disabled", true);
+  addButton.setAttribute("disabled", true);
 }
 
 if (workoutTypeSelect) {
