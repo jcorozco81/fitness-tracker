@@ -3,9 +3,17 @@ const Workout = require("../models/WorkoutSchema");
 
 
 // "/api/workouts" getLastWorkout GET
-
 router.get("/workouts", (req, res) => {
-    Workout.find({})
+    // Workout.find({})
+    Workout.aggregate(
+      ( [
+        {
+          $addFields: {
+            totalDuration: { $sum: "$exercises.duration" } ,
+          }
+        }
+     ] )
+    )
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
@@ -15,8 +23,6 @@ router.get("/workouts", (req, res) => {
   });
 
 // "/api/workouts/" addExercise PUT updateOne
-
-
 router.put("/workouts/:id", (req, res) => {
         // Workout.updateOne({_id: req.params.id}, {$push: {exercises: [{ type: 'cardio', name: 'r', distance: 2, duration: 2 }]}})
 
